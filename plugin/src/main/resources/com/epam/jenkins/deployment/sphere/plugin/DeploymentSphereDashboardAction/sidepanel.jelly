@@ -1,0 +1,16 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:
+fmt">
+  <l:header />
+  <l:side-panel>
+    <l:tasks>
+      <l:task icon="images/24x24/up.gif" href="${rootURL}/" title="Back to dashboard" />
+    </l:tasks>
+    <ul>
+    <li><a style='color: rgb(40, 134, 146)' href="?all">All Environments (${it.environments.size()}  Environments)</a></li>
+    <j:forEach indexVar="index" var="env" items="${it.environments}">        
+           <li><a style='color: rgb(40, 134, 146)' href="?env=${env.title}">${env.title}</a></li>
+     </j:forEach>
+     </ul>
+  </l:side-panel>
+</j:jelly>

@@ -1,0 +1,74 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:g="glide" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:define="jelly:define" >
+	<link href="${it.resourceUrl}/plugin/deployment-sphere/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="${it.resourceUrl}/plugin/deployment-sphere/css/styles.css" rel="stylesheet" />
+	<script type="text/javascript" src="${it.resourceUrl}/plugin/deployment-sphere/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="${it.resourceUrl}/plugin/deployment-sphere/js/bootstrap.min.js"></script>
+
+
+
+	<l:layout title="Build Sphere">
+		<st:include page="sidepanel.jelly"/>
+		<l:main-panel>
+			<div class="col-xs-12 col-md-22 main-panel-content">
+				<div>
+					<span class="plugin-panel-title">Application builds</span>
+					<span class="plugin-panel-header-datails">${it.applications.size()} Total applications</span>
+				</div>
+				
+				
+				
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					<div class="env-panel-header" role="tab" id="heading">
+						<span class="env-panel-title" id = "headerAppName">Application 1</span>
+						<span class="env-panel-details" id = "headerAppNum">No Builds</span>
+					</div>
+					<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>selected</th>
+									<th>${%Build Version}</th>
+									<th>${%Application}</th>
+									<th>${%Build Job}</th>
+									<th>${%Build Time}</th>
+								</tr>
+							</thead>
+							<tbody id = "appTableBody">
+							</tbody>
+					</table>
+					
+				</div>
+				<form action="" id = "radios" onchange = "redrawInfoTable()">
+							<input type="radio" name="radioB" id="radioCommits" value="commits" disabled="true" checked="checked">Commits</input>
+							<input type="radio" name="radioB" id="radioTickets" value="tickets" disabled="true">Tickets</input>
+					</form>
+					<table id = "buildInfoTable" class="table table-striped">
+						<thead id = "tableHead"/>
+						<tbody id = "tableBody"/>
+					</table>
+			</div>
+		</l:main-panel>
+	</l:layout>
+	
+	<script type="text/javascript">
+		function getBuilds(){
+			var str = '${it.builds}';
+			return JSON.parse(str);
+		}
+		
+		function getAppTitleFromUrl(){
+			var currentURL = document.URL;
+			var equalsIndex = currentURL.lastIndexOf('=') + 1;
+			if (equalsIndex>0){
+				return currentURL.substring(equalsIndex);
+			}else if ('${it.applications.size()}'>0){
+				return '${it.applications[0].applicationName}';
+			}else{
+				return '';
+			}
+		}
+	</script>
+	<script type="text/javascript" src="${it.resourceUrl}/plugin/deployment-sphere/js/buildDynamicGeneration.js"></script>
+	
+</j:jelly>

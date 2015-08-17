@@ -1,0 +1,15 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson"  xmlns:f="/lib/form">
+
+<f:section title="${%Deployment Sphere configuration}">
+
+	<f:entry title="${%Applications}">
+		<f:repeatableProperty field="applications" />
+	</f:entry>
+
+	<f:entry title="${%Environments}">
+		<f:repeatableProperty field="environments" />
+	</f:entry>
+  
+</f:section>
+</j:jelly>

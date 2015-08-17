@@ -1,8 +1,12 @@
 language: java
 jdk:
-- oraclejdk7
-script: ./gradlew :plugin:jpi
-after_success: if [ $TRAVIS_SECURE_ENV_VARS ]; then ./gradlew :pl:bintrayUpload -PbinTrayKey=$BINTRAY_KEY -Pversion=0.1.$TRAVIS_BUILD_NUMBER -x jar -x javadoc -x sourcesJar -x publishMavenJpiPublicationToMavenLocal; fi
+  - oraclejdk7
+before_script:
+  - echo "userName=webdizz" > ~/.jenkins-ci.org
+  - echo "password=$JENKINS_REPO_PWD" >> ~/.jenkins-ci.org
+script:
+  - ./gradlew :pl:test :pl:jpi
+  - if [ $TRAVIS_SECURE_ENV_VARS ]; then ./gradlew :pl:publish -Pversion=0.1.${TRAVIS_BUILD_NUMBER}-SNAPSHOT; fi
 env:
   global:
-    secure: blEUjsU8dIot/C43rEeXdun9rQns+lR0qxzMG5cvWr7m3G95LFGOyhFzw9QBaTBFlGplteZAvV6OPo56uHx38J5uGv2DrOGqbX0UoxYY/fh8JytmpESmvGvL5EmPLtgx0V7Hu4+Ts0X1PzYLV69mD5dG7bg//P5fiLzHSSqfBCs=
+    secure: i62q5qva8T4+WD3NzulpmZtWYWYng2iVow7tQ1YbZa2Sk4s7CJ1nUlCBB+5tiXn9KZTwMho2z6IWMPG7wvZ8/IxWI9v+4jLPOlhlDpSK4ZKeE6R8eUu0bVtPgW9BHj9f+fff4ddKuzBm07n5bkvdNmF8n6ELGFiZxcPIebTF+fM=

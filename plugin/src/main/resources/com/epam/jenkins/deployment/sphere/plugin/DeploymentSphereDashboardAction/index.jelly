@@ -1,0 +1,36 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:g="glide" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:define="jelly:define" >
+	<link href="${it.resourceUrl}/plugin/deployment-sphere/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="${it.resourceUrl}/plugin/deployment-sphere/css/styles.css" rel="stylesheet" />
+	<script type="text/javascript" src="${it.resourceUrl}/plugin/deployment-sphere/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="${it.resourceUrl}/plugin/deployment-sphere/js/bootstrap.min.js"></script>
+
+	<l:layout title="${%Deployment Sphere}">
+		<st:include page="sidepanel.jelly"/>
+		<l:main-panel>
+			<div class="col-xs-12 col-md-22 main-panel-content">
+				<div>
+					<span class="plugin-panel-title">${%Deployments across environments}</span>
+					<span class="plugin-panel-header-datails">${it.environments.size()} ${%Environments}</span>
+				</div>
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				    <div><br/><br/><strong>${%Currently there is no deployments}</strong></div>
+				</div>
+			</div>
+		</l:main-panel>
+	</l:layout>
+	
+	<script type="text/javascript">
+		function getEnvironments(){
+			var envStr = '${it.environments}';
+			return JSON.parse(envStr);
+		}
+		function getBuildVersion(){return '${%Build Version}'}
+		function getApplication(){return '${%Application}'}
+		function getDeploymentTime(){return '${%Deployment Time}'}
+		function getBuildJob(){return '${%Build Job}'}
+		function getBuildTime(){return '${%Build Time}'}
+	</script>
+	<script type="text/javascript" src="${it.resourceUrl}/plugin/deployment-sphere/js/deployDynamicGeneration.js"></script>
+</j:jelly>
